@@ -132,3 +132,16 @@ const int rainbow_b[]   =   {500,500,250,125,125,250,250,500,500,750,250,500,500
 const int *SONGS[] = {tusch,song2,starWars,superMario,waltz,tango,beHappy,rainbow};
 const int *BEATS[] = {tusch_b,beat2,starWars_b,superMario_b,waltz_b,tango_b,beHappy_b,rainbow_b};
 const int storedSongs = 8;
+
+const ManagedString sounds[] = {
+    ManagedString("giggle"),
+    ManagedString("happy"),
+    ManagedString("hello"),
+    ManagedString("mysterious"),
+    ManagedString("sad"),
+    ManagedString("slide"),
+    ManagedString("soaring"),
+    ManagedString("spring"),
+    ManagedString("twinkle"),
+    ManagedString("yawn")
+};
