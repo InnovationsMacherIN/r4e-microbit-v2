@@ -77,9 +77,6 @@ int main() {
             case 'M': {
                 playMelody(msg);
                 break;}
-            case 'S': {
-                showSensorValue(msg);
-                break;}
             case 'W': {
                 wait(msg);
                 break;}
@@ -170,28 +167,6 @@ void playSound(ManagedString msg) {
         return;
     }
     uBit.audio.soundExpressions.playAsync(sounds[soundIndex-1]);
-}
-
-void showSensorValue(ManagedString msg) {
-    switch(msg.charAt(1)) {
-        case 't': {
-            DMESG("TEMPERATURE: %d", uBit.thermometer.getTemperature());
-            // uBit.display.scroll("Temp= ");
-            uBit.display.scroll(uBit.thermometer.getTemperature());
-            break;
-        }
-        /*
-        case 'k': {
-            DMESG("Heading [%d]", uBit.compass.heading());
-            uBit.display.scroll(uBit.compass.heading());
-            break;
-        }
-        */
-        default: {
-            uBit.display.scroll(msg);
-            break;
-        }   
-    } 
 }
 
 void moveBot(ManagedString msg) {
