@@ -1,7 +1,7 @@
 #include "MicroBit.h"
-#include "Tests.h"
 #include "MusicalNotes.h"
 #include "Pictures.h"
+#include "CodalDmesg.h"
 
 MicroBit uBit;
 MicroBitUARTService *uart;
@@ -55,7 +55,8 @@ int main() {
     uBit.messageBus.listen(MICROBIT_ID_BLE, MICROBIT_BLE_EVT_DISCONNECTED, onDisconnected);
 
     uart = new MicroBitUARTService(*uBit.ble, 32, 32);
-    // new MicroBitTemperatureService(*uBit.ble, uBit.thermometer);
+    uBit.thermometer.setPeriod(2000);
+    new MicroBitTemperatureService(*uBit.ble, uBit.thermometer);
     
     while(1) {
         ManagedString msg = uart->readUntil(":");
@@ -179,8 +180,17 @@ void showSensorValue(ManagedString msg) {
             uBit.display.scroll(uBit.thermometer.getTemperature());
             break;
         }
-        default:
+        /*
+        case 'k': {
+            DMESG("Heading [%d]", uBit.compass.heading());
+            uBit.display.scroll(uBit.compass.heading());
+            break;
+        }
+        */
+        default: {
             uBit.display.scroll(msg);
+            break;
+        }   
     } 
 }
 
