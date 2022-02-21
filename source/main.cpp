@@ -46,6 +46,14 @@ void onDisconnected(MicroBitEvent)
     uBit.display.scroll("D");
 }
 
+void onButtonB(MicroBitEvent)
+{
+    //<! stops motors and clears display immediately
+    setMotorPins("s");
+    uBit.display.clear();
+    //uart->send("STOP\n");
+}
+
 int main() {
     uBit.init();
     uBit.display.scrollAsync("R4G");
@@ -53,10 +61,11 @@ int main() {
     // uBit.audio.soundExpressions.playAsync("giggle");
     uBit.messageBus.listen(MICROBIT_ID_BLE, MICROBIT_BLE_EVT_CONNECTED, onConnected);
     uBit.messageBus.listen(MICROBIT_ID_BLE, MICROBIT_BLE_EVT_DISCONNECTED, onDisconnected);
+    uBit.messageBus.listen(MICROBIT_ID_BUTTON_B, MICROBIT_BUTTON_EVT_LONG_CLICK, onButtonB);
 
     uart = new MicroBitUARTService(*uBit.ble, 32, 32);
-    uBit.thermometer.setPeriod(2000);
-    new MicroBitTemperatureService(*uBit.ble, uBit.thermometer);
+    //uBit.thermometer.setPeriod(2000);
+    //new MicroBitTemperatureService(*uBit.ble, uBit.thermometer);
     
     while(1) {
         ManagedString msg = uart->readUntil(":");
@@ -126,6 +135,7 @@ void showPictureOrText(ManagedString msg) {
         return;
     } else if(time_to_shine == 0) {
         uBit.display.printAsync(PICTURES[idx-1]);
+        uart->send("OK\n");
     } else {
         uBit.display.print(PICTURES[idx-1],0,0,0,time_to_shine);
         uBit.display.clear();
@@ -254,7 +264,7 @@ void setMotorPins(ManagedString msg) {
     P16.setAnalogValue(((m2_pwm & moveMask)/m2_pwm) * velocity_2);  // pwm motor2
 }
 
-//void setMotorPins(ManagedString msg) {
+// void setMotorPins(ManagedString msg) {
 //    /**
 //     * ElecFreaks Motor:bit Board
 //     * Motor 1 PWM = P1,    Motor1 direction = P8 (LOW = CC, HIGH = C)
@@ -271,7 +281,7 @@ void setMotorPins(ManagedString msg) {
 //    uBit.io.P8.setDigitalValue((m1_dir & moveMask)/m1_dir);               //dir motor1
 //    uBit.io.P1.setAnalogValue((m1_pwm & moveMask)* velocity_1);           //pwm motor1
 //    uBit.io.P2.setAnalogValue(((m2_pwm & moveMask)/m2_pwm) * velocity_2); //pwm motor2
-//}
+// }
 
 //void setMotorPins(ManagedString msg) {
 //    /**
