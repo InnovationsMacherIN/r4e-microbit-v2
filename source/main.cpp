@@ -140,7 +140,6 @@ void showPictureOrText(ManagedString msg) {
         uBit.display.print(PICTURES[idx-1],0,0,0,time_to_shine);
         uBit.display.clear();
     }
-    // MicroBitImage i((ImageData*)PICTURES[idx-1]);
 }
 
 void wait(ManagedString msg) {
@@ -156,12 +155,12 @@ void wait(ManagedString msg) {
 
 void playMelody(ManagedString msg) {
     //>! play Song from songbook in musicalNotes.h
-    if((msg.charAt(1)-'0') < 1 || (msg.charAt(1)-'0') > storedSongs){
+    int songidx = (int)((msg.charAt(1)-'0') * 10 + (msg.charAt(2)-'0') -1);
+    if(songidx < 0 || songidx > storedSongs-1){
         uBit.display.scroll(msg);
         return;
     }
-    int songidx = (int)(msg.charAt(1)-'0') - 1;
-    for(int i = 0; SONGS[songidx][i] != -1; i++){
+    for(int i=0; SONGS[songidx][i] != -1; i++){
         uBit.audio.virtualOutputPin.setAnalogValue(511);  // set duty cycle
         uBit.audio.virtualOutputPin.setAnalogPeriodUs((int)(1000000/SONGS[songidx][i]));
         uBit.sleep(BEATS[songidx][i]);
