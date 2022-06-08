@@ -51,12 +51,20 @@ void onButtonB(MicroBitEvent)
     //<! stops motors and clears display immediately
     setMotorPins("s");
     uBit.display.clear();
-    //uart->send("STOP\n");
+    uart->send("STOP\n");
+}
+
+void confirm(bool commandExecuted) {
+    if(commandExecuted) {
+        uart->send("OK\n");
+    } else {
+        uart->send("UC\n");
+    }
 }
 
 int main() {
     uBit.init();
-    uBit.display.scrollAsync("R4G");
+    uBit.display.scrollAsync("R4E");
     uBit.audio.setVolume(255);
     // uBit.audio.soundExpressions.playAsync("giggle");
     uBit.messageBus.listen(MICROBIT_ID_BLE, MICROBIT_BLE_EVT_CONNECTED, onConnected);
@@ -93,7 +101,6 @@ int main() {
                 uBit.display.scroll(msg);
                 break;}
         }
-        uart->send("OK\n");
     }
 }
 
@@ -121,25 +128,26 @@ void turnDisplay(ManagedString msg) {
 
 void showPictureOrText(ManagedString msg) {
     //>! Show picture or scroll text according to msg from app
-    int idx = msg.charAt(1) - '0';
+    int idx = (int)((msg.charAt(1)-'0') * 10 + (msg.charAt(2)-'0'));
     if(idx > storedPictures){
         uBit.display.scroll(msg);
+        confirm(false);
         return;
     } else if(idx == 0) {
         uBit.display.clear();
+        confirm(true);
         return;
     }
-    int time_to_shine = (msg.charAt(2) - '0') * 1000;
+    int time_to_shine = (msg.charAt(3) - '0') * 1000;
     if(time_to_shine < 0 || time_to_shine > 9000){
         uBit.display.scroll(msg);
-        return;
     } else if(time_to_shine == 0) {
         uBit.display.printAsync(PICTURES[idx-1]);
-        uart->send("OK\n");
     } else {
         uBit.display.print(PICTURES[idx-1],0,0,0,time_to_shine);
         uBit.display.clear();
     }
+    confirm(true);
 }
 
 void wait(ManagedString msg) {
@@ -147,10 +155,13 @@ void wait(ManagedString msg) {
     wait_time = wait_time + (int)((msg.charAt(3)-'0') * 100);
     if (wait_time >= 100 && wait_time <= 9900) {
         uBit.sleep(wait_time);
+        confirm(true);
     }
     else {
         uBit.display.scroll(msg);
+        confirm(false);
     }
+    return;
 }
 
 void playMelody(ManagedString msg) {
@@ -158,6 +169,7 @@ void playMelody(ManagedString msg) {
     int songidx = (int)((msg.charAt(1)-'0') * 10 + (msg.charAt(2)-'0') -1);
     if(songidx < 0 || songidx > storedSongs-1){
         uBit.display.scroll(msg);
+        confirm(false);
         return;
     }
     for(int i=0; SONGS[songidx][i] != -1; i++){
@@ -167,21 +179,25 @@ void playMelody(ManagedString msg) {
         uBit.audio.virtualOutputPin.setAnalogValue(0);
         uBit.sleep(50);
     }
+    confirm(true);
 }
 
 void playSound(ManagedString msg) {
     int soundIndex = (int)((msg.charAt(1)-'0') * 10 + (msg.charAt(2)-'0'));
     if(soundIndex < 1 || soundIndex > 10){
         uBit.display.scroll(msg);
+        confirm(false);
         return;
     }
     uBit.audio.soundExpressions.playAsync(sounds[soundIndex-1]);
+    confirm(true);
 }
 
 void moveBot(ManagedString msg) {
     uint32_t duration = 0;
     if((msg.charAt(2)-'0') < 0 || (msg.charAt(2)-'0') > 10){
         uBit.display.scroll(msg);
+        confirm(false);
         return;
     }
     duration = (uint32_t)((msg.charAt(2)-'0') * 1000);
@@ -189,6 +205,7 @@ void moveBot(ManagedString msg) {
     setMotorPins(msg);
     uBit.sleep(duration);
     setMotorPins("s");
+    confirm(true);
 }
 
 void changeMotorVelocity(ManagedString msg) {
@@ -196,6 +213,7 @@ void changeMotorVelocity(ManagedString msg) {
     uint32_t val = (uint32_t)((msg.charAt(2)-'0') * 10 + (msg.charAt(3)-'0'));
     if(val < 1 || val > 31){
         uBit.display.scroll(msg);
+        confirm(false);
         return;
     }
     int vel = int(val * 32 + 31);
@@ -214,6 +232,7 @@ void changeMotorVelocity(ManagedString msg) {
             uBit.display.scroll(msg);
             break;}
     }
+    confirm(true);
 }
 
 unsigned char set_direction(ManagedString direction, unsigned char *bitmasks){

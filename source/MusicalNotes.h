@@ -129,8 +129,8 @@ const int harryPotter[] =   {   NOTE_E4,NOTE_A4,NOTE_C5,NOTE_B4,NOTE_A4,
 const int happyBirthday[] = {   NOTE_G3,NOTE_G3,NOTE_A3,NOTE_G3,NOTE_C4,
                                 NOTE_B3,NOTE_G3,NOTE_G3,NOTE_A3,NOTE_G3,
                                 NOTE_D4,NOTE_C4,NOTE_G3,NOTE_G3,NOTE_G4,
-                                NOTE_E4,NOTE_C4,NOTE_B3,NOTE_A3,NOTE_F5,
-                                NOTE_F5,NOTE_E4,NOTE_C3,NOTE_D4,NOTE_C3,
+                                NOTE_E4,NOTE_C4,NOTE_B3,NOTE_A3,NOTE_F4,
+                                NOTE_F4,NOTE_E4,NOTE_C4,NOTE_D4,NOTE_C4,
                                 -1};
 // Delays to hold the notes (eg. 1/8, 1/4, 1/16 notes)
 const int tusch_b[]     =   {   160,67,160,160,250,
@@ -160,7 +160,7 @@ const int beHappy_b[]   =   {   500,125,375,375,250,
                                 125,250,125,750,1000,
                                 250,125,250,125,250,
                                 125,750,1000,250,125,
-                                250,125,750,0}; //125,750,0
+                                250,125,750,0};
 const int rainbow_b[]   =   {   500,500,250,125,125,
                                 250,250,500,500,750,
                                 250,500,500,250,125,
@@ -173,11 +173,11 @@ const int harryPotter_b[]=  {   250,500,125,250,500,
                                 250,500,250,500,250,
                                 500,125,250,500,250,
                                 1050,0};
-const int happyBirthday_b[]= {  400,400,800,800,800,
-                                1600,400,400,800,800,
-                                800,1600,400,400,800,
-                                800,800,800,800,400,
-                                400,800,800,800,1600,
+const int happyBirthday_b[]= {  300,300,600,600,600,
+                                1200,300,300,600,600,
+                                600,1200,300,300,600,
+                                600,600,600,600,300,
+                                300,600,600,600,1200,
                                 0};
 
 
