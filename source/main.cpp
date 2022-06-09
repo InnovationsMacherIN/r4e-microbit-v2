@@ -99,6 +99,7 @@ int main() {
                 break;}
             default: {
                 uBit.display.scroll(msg);
+                confirm(false);
                 break;}
         }
     }
@@ -141,13 +142,15 @@ void showPictureOrText(ManagedString msg) {
     int time_to_shine = (msg.charAt(3) - '0') * 1000;
     if(time_to_shine < 0 || time_to_shine > 9000){
         uBit.display.scroll(msg);
+        confirm(false);
     } else if(time_to_shine == 0) {
         uBit.display.printAsync(PICTURES[idx-1]);
+        confirm(true);
     } else {
         uBit.display.print(PICTURES[idx-1],0,0,0,time_to_shine);
         uBit.display.clear();
+        confirm(true);
     }
-    confirm(true);
 }
 
 void wait(ManagedString msg) {
