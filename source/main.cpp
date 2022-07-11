@@ -106,26 +106,6 @@ int main() {
 }
 
 // FUNCTIONS
-/* Microbit v2 does not offer rotateTo method for display
-void turnDisplay(ManagedString msg) {
-    int degrees = msg.charAt(1);
-    if(degrees == '0') {
-        uBit.display.rotateTo(MICROBIT_DISPLAY_ROTATION_0);
-    }
-    else if(degrees == '9' && msg.charAt(2) == '0') {
-        uBit.display.rotateTo(MICROBIT_DISPLAY_ROTATION_90);
-    }
-    else if(degrees == '1' && msg.charAt(2) == '8') {
-        uBit.display.rotateTo(MICROBIT_DISPLAY_ROTATION_180);
-    }
-    else if(degrees == '2' && msg.charAt(2) == '7') {
-        uBit.display.rotateTo(MICROBIT_DISPLAY_ROTATION_270);
-    }
-    else {
-        uBit.display.scroll(msg);
-    }
-}
-*/
 
 void showPictureOrText(ManagedString msg) {
     //>! Show picture or scroll text according to msg from app

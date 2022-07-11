@@ -132,6 +132,16 @@ const int happyBirthday[] = {   NOTE_G3,NOTE_G3,NOTE_A3,NOTE_G3,NOTE_C4,
                                 NOTE_E4,NOTE_C4,NOTE_B3,NOTE_A3,NOTE_F4,
                                 NOTE_F4,NOTE_E4,NOTE_C4,NOTE_D4,NOTE_C4,
                                 -1};
+
+const int areYouSleeping[] = {  NOTE_F4,NOTE_G4,NOTE_A4,NOTE_F4,
+                                NOTE_F4,NOTE_G4,NOTE_A4,NOTE_F4,
+                                NOTE_A4,NOTE_AS4,NOTE_C5,
+                                NOTE_A4,NOTE_AS4,NOTE_C5,0,
+                                NOTE_C5,NOTE_D5,NOTE_C5,NOTE_AS4,NOTE_A4,NOTE_F4,
+                                NOTE_C5,NOTE_D5,NOTE_C5,NOTE_AS4,NOTE_A4,NOTE_F4,
+                                NOTE_F4,NOTE_C4,NOTE_F4,0,
+                                NOTE_F4,NOTE_C4,NOTE_F4,0,-1};
+
 // Delays to hold the notes (eg. 1/8, 1/4, 1/16 notes)
 const int tusch_b[]     =   {   160,67,160,160,250,
                                 400,67,250,250,0};
@@ -179,12 +189,19 @@ const int happyBirthday_b[]= {  300,300,600,600,600,
                                 600,600,600,600,300,
                                 300,600,600,600,1200,
                                 0};
-
+const int areYouSleeping_b[] = {500,500,500,500,
+                                500,500,500,500,
+                                500,500,1000,
+                                500,500,800,200,
+                                250,250,250,250,500,500,
+                                250,250,250,250,500,500,
+                                500,500,800,200,
+                                500,500,800,200,0};
 
 // Songbook
-const int *SONGS[] = {tusch,song2,starWars,superMario,waltz,tango,beHappy,rainbow,harryPotter,happyBirthday};
-const int *BEATS[] = {tusch_b,beat2,starWars_b,superMario_b,waltz_b,tango_b,beHappy_b,rainbow_b,harryPotter_b,happyBirthday_b};
-const int storedSongs = 10;
+const int *SONGS[] = {tusch,song2,starWars,superMario,waltz,tango,beHappy,rainbow,harryPotter,happyBirthday,areYouSleeping};
+const int *BEATS[] = {tusch_b,beat2,starWars_b,superMario_b,waltz_b,tango_b,beHappy_b,rainbow_b,harryPotter_b,happyBirthday_b,areYouSleeping_b};
+const int storedSongs = 11;
 
 const ManagedString sounds[] = {
     ManagedString("giggle"),
